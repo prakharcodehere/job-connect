@@ -48,20 +48,20 @@ const Bookmark = () => {
   };
 
   const renderBookmark = ({ item }) => (
-    <View style={styles.jobCard}>
-      <TouchableOpacity onPress={() => navigation.navigate('jobDetails', { id: item.id })}>
-        <View style={styles.jobInfo}>
-          <Text style={styles.jobTitle}>{item.title}</Text>
-          <Text style={styles.jobLocation}>Location: {item.primary_details?.Place || 'No Location'}</Text>
-          <Text style={styles.jobSalary}>Salary: {item.primary_details?.Salary || 'No Salary'}</Text>
-          <Text style={styles.jobPhone}>Contact: {item.whatsapp_no || 'No Contact'}</Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => removeFromBookmarks(item.id)} style={styles.removeButton}>
-        <Ionicons name="trash" size={20} color="#fff" />
-      </TouchableOpacity>
-    </View>
-  );
+      <View style={styles.jobCard}>
+        <TouchableOpacity onPress={() => navigation.navigate('jobDetails', { id: item.id })}>
+          <View style={styles.jobInfo}>
+            <Text style={styles.jobTitle}>{item.title}</Text>
+            <Text style={styles.jobLocation}>Location: {item.primary_details?.Place || 'No Location'}</Text>
+            <Text style={styles.jobSalary}>Salary: {item.primary_details?.Salary || 'No Salary'}</Text>
+            <Text style={styles.jobPhone}>Contact: {item.whatsapp_no || 'No Contact'}</Text>
+            <TouchableOpacity onPress={() => removeFromBookmarks(item.id)} style={styles.removeButton}>
+              <Ionicons name="trash" size={20} color="#fff" />
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
 
   if (loading) {
     return (
@@ -88,57 +88,112 @@ const Bookmark = () => {
   );
 };
 
+// const styles = StyleSheet.create({
+//   jobCard: {
+//     backgroundColor: '#fff',
+//     padding: 30,
+//     marginVertical: 10,
+//     marginHorizontal: 20,
+//     borderRadius: 20,
+//     shadowColor: '#000',
+//     shadowOffset: { width: 0, height: 2 },
+//     shadowOpacity: 0.2,
+//     shadowRadius: 2,
+//     elevation: 5,
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//     alignItems: 'center',
+//   },
+//   jobInfo: {
+//     flex: 1,
+//   },
+//   jobTitle: {
+//     fontSize: 18,
+//     fontWeight: 'bold',
+//     marginBottom: 5,
+//   },
+//   jobLocation: {
+//     fontSize: 14,
+//     marginBottom: 5,
+//   },
+//   jobSalary: {
+//     fontSize: 14,
+//     marginBottom: 5,
+//   },
+//   jobPhone: {
+//     fontSize: 14,
+//     color: 'blue',
+//   },
+//   removeButton: {
+//     backgroundColor: '#ff0000',
+//     padding: 6,
+//     borderRadius: 10,
+//   },
+//   loadingContainer: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   emptyContainer: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+// });
+
 const styles = StyleSheet.create({
-  jobCard: {
-    backgroundColor: '#fff',
-    padding: 20,
-    marginVertical: 10,
-    marginHorizontal: 20,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  jobInfo: {
-    flex: 1,
-  },
-  jobTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  jobLocation: {
-    fontSize: 14,
-    marginBottom: 5,
-  },
-  jobSalary: {
-    fontSize: 14,
-    marginBottom: 5,
-  },
-  jobPhone: {
-    fontSize: 14,
-    color: 'blue',
-  },
-  removeButton: {
-    backgroundColor: '#ff0000',
-    padding: 10,
-    borderRadius: 10,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+      jobCard: {
+        backgroundColor: '#fff',
+        padding: 20,
+        marginVertical: 10,
+        marginHorizontal: 20,
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        elevation: 5,
+      },
+      jobInfo: {
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      },
+      jobTitle: {
+        fontSize: 17,
+        fontWeight: 'bold',
+        marginBottom: 5,
+      },
+      jobLocation: {
+        fontSize: 16,
+        marginBottom: 5,
+      },
+      jobSalary: {
+        fontSize: 16,
+        marginBottom: 5,
+      },
+      jobPhone: {
+        fontSize: 16,
+        color: 'gray',
+        marginBottom: 10,
+      },
+      removeButton: {
+        alignSelf: 'flex-end',
+        backgroundColor: '#ff0000',
+        padding: 10,
+        borderRadius: 10,
+        marginTop: 10,
+      },
+      loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      emptyContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+    });
+    
 
 export default Bookmark;
