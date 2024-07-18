@@ -30,7 +30,7 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="jobDetails"  />
+        <Stack.Screen name="jobDetails"  options={{ headerShown: true }}  />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>
