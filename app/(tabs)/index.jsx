@@ -35,7 +35,7 @@ const JobsScreen = () => {
     const salary = item.primary_details && item.primary_details.Salary ? item.primary_details.Salary : 'Salary not specified';
   
     return (
-      <TouchableOpacity onPress={() => router.push({ pathname: 'jobDetails', params: { job: item } })}>
+      <TouchableOpacity  onPress={() => router.push({ pathname: 'jobDetails', params: { id: item.id } })}>
         <View style={styles.jobCard}>
           <Text style={styles.jobTitle}>{item.title}</Text>
           <Text style={styles.jobLocation}>Location: {place}</Text>
