@@ -146,7 +146,7 @@ const JobsScreen = () => {
   return (
    
     <View style={styles.container}>
-     <ImageBackground  source={require('../../assets/images/bg-three.jpeg')} style={styles.background}>
+     <ImageBackground  source={require('../../assets/images/bg-one.jpg')} style={styles.background}>
       <TextInput
         style={styles.searchInput}
         placeholder="Search by job or location"
@@ -172,8 +172,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 10,
-    paddingTop: 10,
+   
+
   },
   background:{
 
@@ -183,13 +183,16 @@ const styles = StyleSheet.create({
 
   searchInput: {
     height: 40,
-    borderColor: '#C0C0C0',
+    borderColor: '#000000',
     borderWidth: 2,
+ 
+    marginVertical:8,
+    marginHorizontal:14,
    
     borderRadius: 20,
     paddingHorizontal: 10,
     marginBottom: 10,
-    backgroundColor: 'rgba(227, 227, 227, 1)',
+    backgroundColor: 'rgba(255, 255, 255, 1)',
   },
   jobCard: {
     backgroundColor: '#fff',

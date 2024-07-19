@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import { ImageBackground } from 'react-native';
 
 const Bookmark = () => {
   const [bookmarks, setBookmarks] = useState([]);
@@ -74,17 +75,19 @@ const Bookmark = () => {
   if (bookmarks.length === 0) {
     return (
       <View style={styles.emptyContainer}>
-        <Text>No bookmarks available.</Text>
+        <Text  style={styles.emptyContainerText} >No bookmarks available.</Text>
       </View>
     );
   }
 
   return (
+      <ImageBackground  source={require('../../assets/images/bg-two.jpeg')} style={styles.background}>
     <FlatList
       data={bookmarks}
       renderItem={renderBookmark}
       keyExtractor={(item) => item.id ? item.id.toString() : item.title} // Adjust keyExtractor as needed
     />
+    </ImageBackground>
   );
 };
 
@@ -96,10 +99,10 @@ const Bookmark = () => {
 //     marginHorizontal: 20,
 //     borderRadius: 20,
 //     shadowColor: '#000',
-//     shadowOffset: { width: 0, height: 2 },
-//     shadowOpacity: 0.2,
-//     shadowRadius: 2,
-//     elevation: 5,
+//     shadowOffset: { width: 0, height: 6 },
+//     shadowOpacity: 0.7,
+//     shadowRadius: 6,
+//     elevation: ,
 //     flexDirection: 'row',
 //     justifyContent: 'space-between',
 //     alignItems: 'center',
@@ -142,6 +145,11 @@ const Bookmark = () => {
 // });
 
 const styles = StyleSheet.create({
+      background:{
+            flex: 1,
+            resizeMode: 'cover',
+      },
+
       jobCard: {
         backgroundColor: '#fff',
         padding: 20,
@@ -150,9 +158,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
+        shadowOpacity: 2,
         shadowRadius: 2,
-        elevation: 5,
+        elevation: 10,
       },
       jobInfo: {
         flexDirection: 'column',
@@ -192,6 +200,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+  
+      },
+      emptyContainerText:{
+            fontSize: 20,
+            color: 'gray',
       },
     });
     
