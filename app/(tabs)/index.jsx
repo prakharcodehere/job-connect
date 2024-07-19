@@ -146,7 +146,7 @@ const JobsScreen = () => {
   return (
    
     <View style={styles.container}>
-     <ImageBackground  source={require('../../assets/images/Background_Abstract.jpg')} style={styles.background}>
+     <ImageBackground  source={require('../../assets/images/bg-three.jpeg')} style={styles.background}>
       <TextInput
         style={styles.searchInput}
         placeholder="Search by job or location"

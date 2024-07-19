@@ -37,12 +37,28 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: 'Jobs',
+          headerStyle: {
+                backgroundColor:  'tomato', 
+              },
+              headerTintColor:  '#fff' ,
+              headerTitleStyle: {
+            fontSize: 22, 
+            fontWeight: 'bold', 
+          },
         }}
       />
       <Tabs.Screen
         name="bookmark"
         options={{
           title: 'Bookmarks',
+          headerStyle: {
+                backgroundColor:  'tomato', 
+              },
+              headerTintColor:  '#fff' ,
+              headerTitleStyle: {
+            fontSize: 22, 
+            fontWeight: 'bold', 
+          },
         }}
       />
     </Tabs>

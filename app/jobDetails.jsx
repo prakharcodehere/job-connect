@@ -11,6 +11,43 @@ const JobDetails = () => {
   const [error, setError] = useState(null);
 
  
+// useEffect(() => {
+//       const fetchJobDetails = async () => {
+//         setLoading(true);
+//         if (!id) {
+//           setError('No job ID provided');
+//           setLoading(false);
+//           return;
+//         }
+    
+//         try {
+//           const response = await axios.get('https://testapi.getlokalapp.com/common/jobs');
+//           const jobs = response.data.results;
+    
+//           console.log('Requested Job ID:', id); 
+//           console.log('All job IDs:', jobs.map(job => job.id)); 
+    
+          
+//   let convertedID =  parseInt(id)
+//           const foundJob = jobs.find(j => j.id === convertedID);
+       
+//           console.log('Found Job:', foundJob); 
+//           if (foundJob) {
+//             setJob(foundJob);
+//             setError(null); 
+//           } else {
+//             setError(`Job not found with ID: ${id}`);
+//           }
+//         } catch (err) {
+//           setError(err.message);
+//         } finally {
+//           setLoading(false);
+//         }
+//       };
+    
+//       fetchJobDetails();
+//     }, [id]);
+    
 useEffect(() => {
       const fetchJobDetails = async () => {
         setLoading(true);
@@ -19,22 +56,30 @@ useEffect(() => {
           setLoading(false);
           return;
         }
-    
+  
         try {
-          const response = await axios.get('https://testapi.getlokalapp.com/common/jobs');
-          const jobs = response.data.results;
-    
-          console.log('Requested Job ID:', id); 
-          console.log('All job IDs:', jobs.map(job => job.id)); 
-    
-          
-  let convertedID =  parseInt(id)
-          const foundJob = jobs.find(j => j.id === convertedID);
-       
-          console.log('Found Job:', foundJob); 
+          const allJobs = [];
+          let page = 1;
+          let hasMorePages = true;
+  
+          while (hasMorePages) {
+            const response = await axios.get(`https://testapi.getlokalapp.com/common/jobs?page=${page}`);
+            const jobs = response.data.results;
+  
+            if (jobs.length > 0) {
+              allJobs.push(...jobs);
+              page += 1;
+            } else {
+              hasMorePages = false;
+            }
+          }
+  
+          const convertedID = parseInt(id);
+          const foundJob = allJobs.find(j => j.id === convertedID);
+  
           if (foundJob) {
             setJob(foundJob);
-            setError(null); 
+            setError(null);
           } else {
             setError(`Job not found with ID: ${id}`);
           }
@@ -44,11 +89,9 @@ useEffect(() => {
           setLoading(false);
         }
       };
-    
+  
       fetchJobDetails();
     }, [id]);
-    
-    
 
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
@@ -87,12 +130,30 @@ useEffect(() => {
         )}
         <Text style={styles.title}>{title || 'No Title'}</Text>
         <Text style={styles.subtitle}>Company: {company_name || 'No Company Name'}</Text>
-        <Text style={styles.detailText}>Location: {Place || 'No Location'}</Text>
-        <Text style={styles.detailText}>Salary: {Salary || 'No Salary'}</Text>
-        <Text style={styles.detailText}>Experience: {Experience || 'No Experience'}</Text>
-        <Text style={styles.detailText}>Qualification: {Qualification || 'No Qualification'}</Text>
-        <Text style={styles.detailText}>Job Type: {Job_Type || 'No Job Type'}</Text>
-        <Text style={styles.detailText}>Contact: {whatsapp_no || 'No Contact'}</Text>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.detailLabel}>Location:</Text>
+          <Text style={styles.detailText}>{Place || 'No Location'}</Text>
+        </View>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.detailLabel}>Salary:</Text>
+          <Text style={styles.detailText}>{Salary || 'No Salary'}</Text>
+        </View>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.detailLabel}>Experience:</Text>
+          <Text style={styles.detailText}>{Experience || 'No Experience'}</Text>
+        </View>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.detailLabel}>Qualification:</Text>
+          <Text style={styles.detailText}>{Qualification || 'No Qualification'}</Text>
+        </View>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.detailLabel}>Job Type:</Text>
+          <Text style={styles.detailText}>{Job_Type || 'No Job Type'}</Text>
+        </View>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.detailLabel}>Contact:</Text>
+          <Text style={styles.detailText}>{whatsapp_no || 'No Contact'}</Text>
+        </View>
 
         {additionalDetails && additionalDetails.map((detail, index) => (
           <View key={index} style={styles.additionalDetail}>
@@ -110,20 +171,18 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f0f0f0',
       },
-      center: {
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
       card: {
         backgroundColor: '#fff',
         margin: 20,
         padding: 20,
         borderRadius: 10,
+        borderColor: '#ddd',
+        borderWidth: 1,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 4,
       },
       image: {
         width: '100%',
@@ -140,25 +199,47 @@ const styles = StyleSheet.create({
       subtitle: {
         fontSize: 18,
         fontWeight: '600',
-        marginBottom: 5,
+        marginBottom: 15,
         color: '#555',
+      },
+      detailsContainer: {
+        marginBottom: 15,
+        borderBottomColor: '#ddd',
+        borderBottomWidth: 1,
+        paddingBottom: 10,
+        paddingHorizontal: 5,
+      },
+      detailLabel: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#333',
       },
       detailText: {
         fontSize: 16,
-        marginBottom: 5,
         color: '#666',
       },
       additionalDetail: {
-        marginTop: 10,
+        marginTop: 15,
+        padding: 10,
+        borderColor: '#ddd',
+        borderWidth: 1,
+        borderRadius: 5,
+        backgroundColor: '#fafafa',
       },
       additionalDetailTitle: {
         fontSize: 14,
         fontWeight: '600',
-        color: '#888',
+        color: '#444',
       },
       additionalDetailText: {
         fontSize: 14,
-        color: '#777',
+        color: '#666',
+      },
+      errorContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
       },
       errorText: {
         fontSize: 16,
